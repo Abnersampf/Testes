@@ -21,7 +21,7 @@ namespace _Testes_2
                 incrementador++;
             }
 
-            Console.Write("Digite uma senha somente com letras (maiúsculas ou minúsculas) e números: ");
+            Console.Write("Digite uma senha (obrigatóriamente com 8 caracteres) somente com letras (maiúsculas ou minúsculas) e números: ");
             string senha = Console.ReadLine();
             string tentativa = "";
             int qtd_tentativas = 0;
@@ -72,7 +72,7 @@ namespace _Testes_2
                 }
             }
             Console.WriteLine("Sua senha é: " + tentativa);
-            Console.WriteLine("Foram necessárias " + qtd_tentativas + " para quebrar sua senha");
+            Console.WriteLine("Foram necessárias " + qtd_tentativas + " tentativas para quebrar sua senha");
         }
     }
 }
