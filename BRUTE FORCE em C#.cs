@@ -1,15 +1,17 @@
 using System;
+using System.Threading;
 
 namespace _Testes_2
 {
-    class Program
+    public static class Global
     {
-        static void Main(string[] args)
-        {
-            char[] caracteres = new char[62];
-            int contador, contador2 = 0, contador3, contador4, contador5, contador6, contador7, contador8, incrementador;
+        public static char[] caracteres = new char[62];
+        public static int contador, contador2 = 0, contador3, contador4, contador5, contador6, contador7, contador8, incrementador, qtd_tentativas;
+        public static string senha, tentativa;
 
-            // Preenche o vetor "letras" com dígitos (0 a 9) e letras maiúsculas (A - Z) e minúsculas (a - z)
+        public static void PreencherVetor()
+        {
+            // Preenche o vetor "letras" com dígitos (0 a 9) e letras maiúsculas (A - Z) e minúsculas (a - z) 
             incrementador = 48;
             for (contador = 0; contador < 75; contador++)
             {
@@ -20,12 +22,11 @@ namespace _Testes_2
                 }
                 incrementador++;
             }
-
-            Console.Write("Digite uma senha (obrigatóriamente com 8 caracteres) somente com letras (maiúsculas ou minúsculas) e números: ");
-            string senha = Console.ReadLine();
-            string tentativa = "";
-            int qtd_tentativas = 0;
-
+        }
+        public static void StartBruteForce()
+        {
+            // Realiza uma combinações entre todos os caracteres possíveis (que estão dentro do vetor "caracteres") e...
+            // ... compara com a senha digitada até que ambas sejam iguais;
             for (contador = 0; contador < 62; contador++)
             {
                 for (contador2 = 0; contador2 < 62; contador2++)
@@ -42,14 +43,14 @@ namespace _Testes_2
                                     {
                                         for (contador8 = 0; contador8 < 62; contador8++)
                                         {
-                                            tentativa = "" + caracteres[contador]
-                                                + caracteres[contador2]
-                                                + caracteres[contador3]
-                                                + caracteres[contador4]
-                                                + caracteres[contador5]
-                                                + caracteres[contador6]
-                                                + caracteres[contador7]
-                                                + caracteres[contador8];
+                                            tentativa = "" + Global.caracteres[contador]
+                                                + Global.caracteres[contador2]
+                                                + Global.caracteres[contador3]
+                                                + Global.caracteres[contador4]
+                                                + Global.caracteres[contador5]
+                                                + Global.caracteres[contador6]
+                                                + Global.caracteres[contador7]
+                                                + Global.caracteres[contador8];
                                             Console.WriteLine(tentativa);
                                             qtd_tentativas++;
                                             if (tentativa == senha)
@@ -71,8 +72,26 @@ namespace _Testes_2
                     }
                 }
             }
-            Console.WriteLine("Sua senha é: " + tentativa);
-            Console.WriteLine("Foram necessárias " + qtd_tentativas + " tentativas para quebrar sua senha");
         }
+    }
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Global.PreencherVetor();
+
+            // Pede para o usuário digitar uma senha
+            Console.Write("Digite uma senha (obrigatóriamente com 8 caracteres) somente com letras (maiúsculas ou minúsculas) e números: ");
+            Global.senha = Console.ReadLine();
+
+            Thread BruteForce = new Thread(Global.StartBruteForce);
+            BruteForce.Start();
+
+            // Apresenta para o usuário qual foi a senha que ele digitou e a quantidade de tentativas que foram necessárias para...
+            //... quebra-la.
+            Console.WriteLine("Sua senha é: " + Global.tentativa);
+            Console.WriteLine("Foram necessárias " + Global.qtd_tentativas + " tentativas para quebrar sua senha");
+        }
+
     }
 }
