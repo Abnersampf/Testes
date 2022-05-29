@@ -1,68 +1,114 @@
 using System;
-using System.Threading;
+using System.Diagnostics;
 
 namespace _Testes_2
 {
-    public static class Global
+    class Program
     {
-        public static char[] caracteres = new char[62];
-        public static int contador, contador2 = 0, contador3, contador4, contador5, contador6, contador7, contador8, incrementador, qtd_tentativas;
-        public static string senha, tentativa;
-
-        public static void PreencherVetor()
+        static void Main(string[] args)
         {
-            // Preenche o vetor "letras" com dígitos (0 a 9) e letras maiúsculas (A - Z) e minúsculas (a - z) 
+            int contador, contador2 = 1, contador3, contador4, contador5, contador6, contador7, contador8, incrementador, qtd_tentativas = 0;
+            string senha = "", tentativa = "", processo = "s";
+            string[] caracteres = new string[63];
+            var cronometro = new Stopwatch();
+
             incrementador = 48;
-            for (contador = 0; contador < 75; contador++)
+            caracteres[0] = "";
+            for (contador = 0; contador < 76; contador++)
             {
                 if (incrementador >= 48 && incrementador <= 57 || incrementador >= 65 && incrementador <= 90 || incrementador >= 97 && incrementador <= 122)
                 {
-                    caracteres[contador2] = (char)incrementador;
+                    caracteres[contador2] = (char)incrementador + "";
                     contador2++;
                 }
                 incrementador++;
             }
-        }
-        public static void StartBruteForce()
-        {
-            // Realiza uma combinações entre todos os caracteres possíveis (que estão dentro do vetor "caracteres") e...
-            // ... compara com a senha digitada até que ambas sejam iguais;
-            for (contador = 0; contador < 62; contador++)
+
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine("------------------------------------------------");
+            Console.WriteLine("|                   FORÇA BRUTA                |");
+            Console.WriteLine("------------------------------------------------");
+            Console.WriteLine("|            REQUISITOS OBRIGATÓRIOS:          |");
+            Console.WriteLine("|                                              |");
+            Console.WriteLine("| - Utilizar apenas letras maiúsculas e/ou...  |");
+            Console.WriteLine("| ...minúsculas e/ou números;                  |");
+            Console.WriteLine("| - Máximo de 8 caracteres.                    |");
+            Console.WriteLine("------------------------------------------------");
+            Console.ForegroundColor = ConsoleColor.White;
+
+            do
             {
-                for (contador2 = 0; contador2 < 62; contador2++)
+                Console.Write("| - Digite uma senha: ");
+                senha = Console.ReadLine();
+
+                if (senha.Length > 8)
                 {
-                    for (contador3 = 0; contador3 < 62; contador3++)
+                    Console.Clear();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("-----------------------");
+                    Console.WriteLine("|       AVISO !!!     |");
+                    Console.WriteLine("-----------------------");
+                    Console.WriteLine("| Senha muito longa ! |");
+                    Console.WriteLine("| Tente novamente     |");
+                    Console.WriteLine("-----------------------");
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                else
+                {
+                    Console.WriteLine("|");
+                    Console.WriteLine("| - Deseja ver o processo de força bruta ?");
+                    Console.Write("| [s - sim | n - não]: ");
+                    processo = Console.ReadLine();
+                }
+                if (senha.Length <= 8)
+                {
+                    if (processo == "n")
                     {
-                        for (contador4 = 0; contador4 < 62; contador4++)
+                        Console.Clear();
+                        Console.WriteLine("Quebrando a senha...");
+                    }
+                    cronometro.Start();
+                    for (contador = 0; contador < 63; contador++)
+                    {
+                        for (contador2 = 0; contador2 < 63; contador2++)
                         {
-                            for (contador5 = 0; contador5 < 62; contador5++)
+                            for (contador3 = 0; contador3 < 63; contador3++)
                             {
-                                for (contador6 = 0; contador6 < 62; contador6++)
+                                for (contador4 = 0; contador4 < 63; contador4++)
                                 {
-                                    for (contador7 = 0; contador7 < 62; contador7++)
+                                    for (contador5 = 0; contador5 < 63; contador5++)
                                     {
-                                        for (contador8 = 0; contador8 < 62; contador8++)
+                                        for (contador6 = 0; contador6 < 63; contador6++)
                                         {
-                                            tentativa = "" + Global.caracteres[contador]
-                                                + Global.caracteres[contador2]
-                                                + Global.caracteres[contador3]
-                                                + Global.caracteres[contador4]
-                                                + Global.caracteres[contador5]
-                                                + Global.caracteres[contador6]
-                                                + Global.caracteres[contador7]
-                                                + Global.caracteres[contador8];
-                                            Console.WriteLine(tentativa);
-                                            qtd_tentativas++;
-                                            if (tentativa == senha)
+                                            for (contador7 = 0; contador7 < 63; contador7++)
                                             {
-                                                contador = 62;
-                                                contador2 = 62;
-                                                contador3 = 62;
-                                                contador4 = 62;
-                                                contador5 = 62;
-                                                contador6 = 62;
-                                                contador7 = 62;
-                                                contador8 = 62;
+                                                for (contador8 = 0; contador8 < 63; contador8++)
+                                                {
+                                                    tentativa = "" + caracteres[contador]
+                                                        + caracteres[contador2]
+                                                        + caracteres[contador3]
+                                                        + caracteres[contador4]
+                                                        + caracteres[contador5]
+                                                        + caracteres[contador6]
+                                                        + caracteres[contador7]
+                                                        + caracteres[contador8];
+                                                    qtd_tentativas++;
+                                                    if (processo == "s")
+                                                    {
+                                                        Console.WriteLine(tentativa);
+                                                    }
+                                                    if (tentativa == senha)
+                                                    {
+                                                        contador = 63;
+                                                        contador2 = 63;
+                                                        contador3 = 63;
+                                                        contador4 = 63;
+                                                        contador5 = 63;
+                                                        contador6 = 63;
+                                                        contador7 = 63;
+                                                        contador8 = 63;
+                                                    }
+                                                }
                                             }
                                         }
                                     }
@@ -70,28 +116,21 @@ namespace _Testes_2
                             }
                         }
                     }
-                }
-            }
+                    cronometro.Stop();
+                    TimeSpan ts = cronometro.Elapsed;
+                    Console.Clear();
+                    Console.WriteLine("----------------------------------------------------------------------------");
+                    Console.WriteLine("|                               RELATÓRIO                                  |");
+                    Console.WriteLine("----------------------------------------------------------------------------");
+                    Console.Write("| - Sua senha é: ");
+                    Console.ForegroundColor = ConsoleColor.Blue;
+                    Console.WriteLine(tentativa);
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine("| - Foram necessárias " + qtd_tentativas + " tentativas para quebrar sua senha");
+                    Console.WriteLine("| - Tempo decorrido: {0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+                    Console.WriteLine("----------------------------------------------------------------------------");
+                } 
+            } while (senha.Length > 8);
         }
-    }
-    class Program
-    {
-        static void Main(string[] args)
-        {
-            Global.PreencherVetor();
-
-            // Pede para o usuário digitar uma senha
-            Console.Write("Digite uma senha (obrigatóriamente com 8 caracteres) somente com letras (maiúsculas ou minúsculas) e números: ");
-            Global.senha = Console.ReadLine();
-
-            Thread BruteForce = new Thread(Global.StartBruteForce);
-            BruteForce.Start();
-
-            // Apresenta para o usuário qual foi a senha que ele digitou e a quantidade de tentativas que foram necessárias para...
-            //... quebra-la.
-            Console.WriteLine("Sua senha é: " + Global.tentativa);
-            Console.WriteLine("Foram necessárias " + Global.qtd_tentativas + " tentativas para quebrar sua senha");
-        }
-
     }
 }
