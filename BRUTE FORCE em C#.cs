@@ -25,15 +25,16 @@ namespace _Testes_2
             }
 
             Console.ForegroundColor = ConsoleColor.Green;
-            Console.WriteLine("------------------------------------------------");
-            Console.WriteLine("|                   FORÇA BRUTA                |");
-            Console.WriteLine("------------------------------------------------");
-            Console.WriteLine("|            REQUISITOS OBRIGATÓRIOS:          |");
-            Console.WriteLine("|                                              |");
-            Console.WriteLine("| - Utilizar apenas letras maiúsculas e/ou...  |");
-            Console.WriteLine("| ...minúsculas e/ou números;                  |");
-            Console.WriteLine("| - Máximo de 8 caracteres.                    |");
-            Console.WriteLine("------------------------------------------------");
+            Console.WriteLine("=====================================================");
+            Console.WriteLine("|     |_\\ |¯] | | ¯T¯ [_¯  [¯¯ |¯¯| |¯] |¯¯ [_¯     |");
+            Console.WriteLine("|     |_/ |¯\\ |_|  |  [__  |¯¯ |__| |¯\\ |__ [__     |");
+            Console.WriteLine("=====================================================");
+            Console.WriteLine("|             REQUISITOS OBRIGATÓRIOS:              |");
+            Console.WriteLine("|                                                   |");
+            Console.WriteLine("| - Utilizar apenas letras maiúsculas e/ou...       |");
+            Console.WriteLine("| ...minúsculas e/ou números;                       |");
+            Console.WriteLine("| - Máximo de 8 caracteres.                         |");
+            Console.WriteLine("-----------------------------------------------------");
             Console.ForegroundColor = ConsoleColor.White;
 
             do
@@ -45,12 +46,13 @@ namespace _Testes_2
                 {
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Red;
-                    Console.WriteLine("-----------------------");
-                    Console.WriteLine("|       AVISO !!!     |");
-                    Console.WriteLine("-----------------------");
-                    Console.WriteLine("| Senha muito longa ! |");
-                    Console.WriteLine("| Tente novamente     |");
-                    Console.WriteLine("-----------------------");
+                    Console.WriteLine("=====================================");
+                    Console.WriteLine("|       /\\ \\  / ¯|¯ |_¯ |¯¯|  |     |");
+                    Console.WriteLine("|      /¯¯\\ \\/  _|_ __| |__|  °     |");
+                    Console.WriteLine("=====================================");
+                    Console.WriteLine("|         Senha muito longa !       |");
+                    Console.WriteLine("|          Tente novamente          |");
+                    Console.WriteLine("-------------------------------------");
                     Console.ForegroundColor = ConsoleColor.White;
                 }
                 else
@@ -95,6 +97,7 @@ namespace _Testes_2
                                                     qtd_tentativas++;
                                                     if (processo == "s")
                                                     {
+                                                        Console.ForegroundColor = ConsoleColor.Green;
                                                         Console.WriteLine(tentativa);
                                                     }
                                                     if (tentativa == senha)
@@ -108,6 +111,7 @@ namespace _Testes_2
                                                         contador7 = 63;
                                                         contador8 = 63;
                                                     }
+                                                    Console.ForegroundColor = ConsoleColor.White;
                                                 }
                                             }
                                         }
@@ -129,7 +133,7 @@ namespace _Testes_2
                     Console.WriteLine("| - Foram necessárias " + qtd_tentativas + " tentativas para quebrar sua senha");
                     Console.WriteLine("| - Tempo decorrido: {0:00}:{1:00}:{2:00}.{3:00}", ts.Hours, ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
                     Console.WriteLine("----------------------------------------------------------------------------");
-                } 
+                }
             } while (senha.Length > 8);
         }
     }
